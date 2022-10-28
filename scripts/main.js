@@ -1,7 +1,19 @@
-import {HANDS, isConnected, getRankings, evaluateHand} from './game-service.js';
+import { HANDS, isConnected, getRankings, evaluateHand } from './game-service.js';
 // TODO: Create DOM references
 // TODO: How to keep track of App state?
+const gameSection = document.getElementById('game-section');
+const welcomeSection = document.getElementById('welcome-screen-section');
+const usernameInput = document.getElementById('username-input');
+const usernameInputButton = document.getElementById('username-input-button');
 
+function init() {
+  welcomeSection.style.visibility = 'hidden';
+  usernameInputButton.style.visibility = 'hidden';
+  usernameInput.addEventListener('keydown', (ev) => {
+    usernameInputButton.style.visibility = usernameInput.value?.length > 0 ? 'visible' : 'hidden';
+  });
+}
+init();
 // TODO: Create View functions
 
 // TODO: Register Event Handlers
@@ -29,7 +41,7 @@ for (let i = 1; i < 10; i++) {
   const playerHand = pickHand();
   evaluateHand('peter', playerHand,
     ({
-       systemHand,
-       gameEval,
-     }) => printWinner(playerHand, systemHand, gameEval));
+      systemHand,
+      gameEval,
+    }) => printWinner(playerHand, systemHand, gameEval));
 }
