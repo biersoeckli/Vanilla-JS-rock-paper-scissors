@@ -1,16 +1,33 @@
+import { startGame } from './game-section.js';
 import { HANDS, isConnected, getRankings, evaluateHand } from './game-service.js';
+import { hideAllSections, showGameSection, showWelcomeSection } from './page-navigation-service.js';
+import { getCurrentUser, initUserService, setCurrentUser } from './user-service.js';
+
 // TODO: Create DOM references
 // TODO: How to keep track of App state?
-const gameSection = document.getElementById('game-section');
-const welcomeSection = document.getElementById('welcome-screen-section');
 const usernameInput = document.getElementById('username-input');
 const usernameInputButton = document.getElementById('username-input-button');
 
 function init() {
-  welcomeSection.style.visibility = 'hidden';
-  usernameInputButton.style.visibility = 'hidden';
-  usernameInput.addEventListener('keydown', (ev) => {
-    usernameInputButton.style.visibility = usernameInput.value?.length > 0 ? 'visible' : 'hidden';
+  hideAllSections();
+  initUserService();
+  if (getCurrentUser()) {
+    showGameSection();
+    startGame();
+    return;
+  }
+  showWelcomeSection();
+  usernameInputButton.disabled = true;
+  usernameInput.addEventListener('keyup', () => {
+    usernameInputButton.disabled = (usernameInput.value ?? '').split(' ').join('') === '';
+  });
+  usernameInputButton.addEventListener('click', () => {
+    if (!usernameInput.value) {
+      return;
+    }
+    showGameSection();
+    setCurrentUser(usernameInput.value);
+    startGame();
   });
 }
 init();

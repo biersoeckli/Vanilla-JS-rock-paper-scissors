@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <title>Schere Stein Papier</title>
   <!-- TODO: use stylesheet styles/global.css; If done correctly the h1 should be blueviolet -->
-  <script src="scripts/main.js" type="module"></script>
+  <script src="./scripts/main.js" type="module"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -15,12 +16,21 @@
     <h1>Hey there! 👋</h1>
     <p>Please enter a username:</p>
     <input id="username-input" />
-    <button id="username-input-button">Let's go</button>
+    <button type="button" id="username-input-button">Let's go</button>
   </section>
   <section id="game-section">
+    <p id="username-label"></p>
+    <button type="button" id="logout-button">Logout</button>
+    <br />
+    <button type="button" id="schere-button">Schere</button>
+    <button type="button" id="stein-button">Stein</button>
+    <button type="button" id="papier-button">Papier</button>
+    <button type="button" id="streichholz-button">Streichholz</button>
+    <button type="button" id="brunnen-button">Brunnen</button>
 
+    <p id="countdown-label"></p>
+    <div id="game-history"></div>
   </section>
-
 </body>
 
 </html>
