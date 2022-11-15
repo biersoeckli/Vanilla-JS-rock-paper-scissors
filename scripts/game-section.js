@@ -1,8 +1,9 @@
 import { getCurrentUser, resetCurrentUser } from './user-service.js';
-import { BRUNNEN, PAPIER, SCHERE, STEIN, STREICHHOLZ } from './models/constants.js';
+import { BRUNNEN, GAME_LOST_CLASS, GAME_WON_CLASS, PAPIER, SCHERE, STEIN, STREICHHOLZ } from './models/constants.js';
 import { sleep } from './utils.js';
 import { showWelcomeSection } from './page-navigation-service.js';
-import GameHistory from './models/game-history.js';
+import { evaluateHand, getRankings } from './game-service.js';
+import { getMoveHistory } from './game-move-history.js';
 
 const usernameLabel = document.getElementById('username-label');
 const logoutButton = document.getElementById('logout-button');
@@ -23,33 +24,15 @@ const userGuessButtons = [
 const gameHistoryDiv = document.getElementById('game-history');
 const countdownLabel = document.getElementById('countdown-label');
 
-const ruleMap = new Map([
-    [SCHERE, [PAPIER, STREICHHOLZ]],
-    [PAPIER, [STEIN, BRUNNEN]],
-    [STEIN, [SCHERE, STREICHHOLZ]],
-    [BRUNNEN, [STEIN, SCHERE]],
-    [STREICHHOLZ, [PAPIER, BRUNNEN]],
-]);
-
-const gameHistory = [];
-
 function updateGameHistoryTable() {
-    const tableContent = gameHistory.map((item) => `<tr>
-        <td>${item.userWins}</td>
+    const tableContent = getMoveHistory()
+    .filter((item) => item.playerName === getCurrentUser().name)
+    .map((item) => `<tr>
+        <td>${item.points}</td>
         <td>${item.guessUser}</td>
         <td>${item.guessComputer}</td>
         </tr>`);
     gameHistoryDiv.innerHTML = `<table>${tableContent}</table>`;
-}
-
-function addGameHistoryItem(gameHistoryItem) {
-    gameHistory.push(gameHistoryItem);
-    updateGameHistoryTable();
-}
-
-function getComputerGuess() {
-    const possibleResults = Array.from(ruleMap.keys());
-    return possibleResults[Math.floor(Math.random() * possibleResults.length)];
 }
 
 async function showCountdown(numberStart) {
@@ -61,21 +44,19 @@ async function showCountdown(numberStart) {
     await showCountdown(numberStart - 1);
 }
 
-async function evaluateUserAnswer(userAnswer, event) {
-    console.log(event);
-    const computerGuess = getComputerGuess();
-    const evalZeroPoints = userAnswer === computerGuess;
-    if (evalZeroPoints) {
-        addGameHistoryItem(new GameHistory(undefined, userAnswer, computerGuess));
-    } else {
-        const userWins = ruleMap.get(userAnswer)
-            .some((winnerAnswer) => computerGuess === winnerAnswer);
-        addGameHistoryItem(new GameHistory(userWins, userAnswer, computerGuess));
-    }
-    userGuessButtons.forEach((button) => { button.disabled = true; });
-    await showCountdown(3);
-    countdownLabel.innerText = 'vs';
-    userGuessButtons.forEach((button) => { button.disabled = false; });
+// todo show what computer result was
+
+async function evaluateUserAnswer(playerHand, event) {
+    evaluateHand(getCurrentUser().name, playerHand, async (res) => {
+        event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+        updateGameHistoryTable();
+        getRankings(); // todo remove
+        userGuessButtons.forEach((button) => { button.disabled = true; });
+        await showCountdown(3);
+        countdownLabel.innerText = 'vs';
+        userGuessButtons.forEach((button) => { button.disabled = false; });
+        event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+    });
 }
 
 export function startGame() {
