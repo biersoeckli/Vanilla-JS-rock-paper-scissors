@@ -9,20 +9,20 @@ const usernameLabel = document.getElementById('username-label');
 const computerHandLabel = document.getElementById('computer-hand-label');
 const logoutButton = document.getElementById('logout-button');
 
-const schereButton = document.getElementById('schere-button');
-const steinButton = document.getElementById('stein-button');
-const papierButton = document.getElementById('papier-button');
-const streichholzButton = document.getElementById('streichholz-button');
-const brunnenButton = document.getElementById('brunnen-button');
+const scissorsButton = document.getElementById('scissors-button');
+const stoneButton = document.getElementById('stone-button');
+const paperButton = document.getElementById('paper-button');
+const matchButton = document.getElementById('match-button');
+const fountainButton = document.getElementById('fountain-button');
 const userGuessButtons = [
-    schereButton,
-    steinButton,
-    papierButton,
-    streichholzButton,
-    brunnenButton,
+    scissorsButton,
+    stoneButton,
+    paperButton,
+    matchButton,
+    fountainButton,
 ];
 
-const gameHistoryDiv = document.getElementById('game-history');
+const gameHistorySection = document.getElementById('game-history-section');
 const countdownLabel = document.getElementById('countdown-label');
 
 function updateGameHistoryTable() {
@@ -34,10 +34,10 @@ function updateGameHistoryTable() {
             <td>${item.systemHand}</td>
             </tr>`);
     if (isEmpty(tableContent)) {
-        gameHistoryDiv.innerHTML = '';
+        gameHistorySection.innerHTML = '';
         return;
     }
-    gameHistoryDiv.innerHTML = `<table><thead><tr><td>result</td><td>player</td><td>computer</td></tr></thead>${tableContent.join('')}</table>`;
+    gameHistorySection.innerHTML = `<table><thead><tr><td>result</td><td>player</td><td>computer</td></tr></thead>${tableContent.join('')}</table>`;
 }
 
 async function showCountdown(numberStart) {
@@ -77,8 +77,8 @@ export function startGame() {
     computerHandLabel.innerText = '?';
 }
 
-schereButton.addEventListener('click', (ev) => evaluateUserAnswer(SCISSORS, ev));
-steinButton.addEventListener('click', (ev) => evaluateUserAnswer(STONE, ev));
-papierButton.addEventListener('click', (ev) => evaluateUserAnswer(PAPER, ev));
-streichholzButton.addEventListener('click', (ev) => evaluateUserAnswer(MATCH, ev));
-brunnenButton.addEventListener('click', (ev) => evaluateUserAnswer(FOUNTAIN, ev));
+scissorsButton.addEventListener('click', (ev) => evaluateUserAnswer(SCISSORS, ev));
+stoneButton.addEventListener('click', (ev) => evaluateUserAnswer(STONE, ev));
+paperButton.addEventListener('click', (ev) => evaluateUserAnswer(PAPER, ev));
+matchButton.addEventListener('click', (ev) => evaluateUserAnswer(MATCH, ev));
+fountainButton.addEventListener('click', (ev) => evaluateUserAnswer(FOUNTAIN, ev));

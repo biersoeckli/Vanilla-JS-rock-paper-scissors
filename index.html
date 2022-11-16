@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Schere Stein Papier</title>
+  <title>🪨 📄 ✂️</title>
   <meta name="viewport"
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="./styles/global.css">
@@ -13,30 +13,29 @@
 </head>
 
 <body>
-  <h1>Schere Stein Papier</h1>
+  <h1 class="bg-cyan p-2 rounded-top text-center uppercase text-cyan">rock paper scissors <br />🪨 📄 ✂️</h1>
 
   <section id="welcome-screen-section">
     <h1>Hey there! 👋</h1>
     <p>Please enter a username:</p>
     <input id="username-input" />
     <button type="button" id="username-input-button">Let's go</button>
-    <section id="ranking-section">
-      
-    </section>
+    <section id="ranking-section"> </section>
   </section>
+
   <section id="game-section">
+    <div class="bg-cyan p-2 text-center rounded-bottom">
+      <button type="button" class="fancy-button" id="scissors-button">scissors</button>
+      <button type="button" class="fancy-button" id="stone-button">stone</button>
+      <button type="button" class="fancy-button" id="paper-button">paper</button>
+      <button type="button" class="fancy-button" id="match-button">match</button>
+      <button type="button" class="fancy-button" id="fountain-button">fountain</button>
+      <p id="countdown-label"></p>
+      <p id="computer-hand-label"></p>
+    </div>
     <p id="username-label"></p>
     <button type="button" id="logout-button">Logout</button>
-    <br />
-    <button type="button" id="schere-button">Schere</button>
-    <button type="button" id="stein-button">Stein</button>
-    <button type="button" id="papier-button">Papier</button>
-    <button type="button" id="streichholz-button">Streichholz</button>
-    <button type="button" id="brunnen-button">Brunnen</button>
-
-    <p id="countdown-label"></p>
-    <p id="computer-hand-label"></p>
-    <div id="game-history"></div>
+    <section id="game-history-section"></section>
   </section>
 </body>
 
