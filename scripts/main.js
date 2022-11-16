@@ -1,11 +1,11 @@
 import { startGame } from './game-section.js';
-import { HANDS, isConnected, getRankings, evaluateHand } from './game-service.js';
-import { hideAllSections, showGameSection, showWelcomeSection } from './page-navigation-service.js';
-import { getCurrentUser, initUserService, setCurrentUser } from './user-service.js';
+import { getRankings } from './services/game-service.js';
+import { hideAllSections, showGameSection, showWelcomeSection } from './services/page-navigation-service.js';
+import { getCurrentUser, initUserService, setCurrentUser } from './services/user-service.js';
+import { isEmpty } from './utils.js';
 
-// TODO: Create DOM references
-// TODO: How to keep track of App state?
 const usernameInput = document.getElementById('username-input');
+const rankingSection = document.getElementById('ranking-section');
 const usernameInputButton = document.getElementById('username-input-button');
 
 function init() {
@@ -31,34 +31,13 @@ function init() {
   });
 }
 init();
-// TODO: Create View functions
 
-// TODO: Register Event Handlers
-
-// TODO: Replace the following demo code. It should not be included in the final solution
-
-console.log('isConnected:', isConnected());
-
-getRankings((rankings) => rankings.forEach((rankingEntry) => console.log(
-  `Rank ${rankingEntry.rank} (${rankingEntry.wins} wins): ${rankingEntry.players}`,
-)));
-
-function pickHand() {
-  const handIndex = Math.floor(Math.random() * 3);
-  return HANDS[handIndex];
-}
-
-let count = 1;
-
-function printWinner(hand, didWin) {
-  console.log(count++, hand, didWin);
-}
-
-for (let i = 1; i < 10; i++) {
-  const playerHand = pickHand();
-  evaluateHand('peter', playerHand,
-    ({
-      systemHand,
-      gameEval,
-    }) => printWinner(playerHand, systemHand, gameEval));
-}
+getRankings((rankings) => {
+  if (isEmpty(rankings)) {
+    rankingSection.innerHTML = '';
+    return;
+  }
+  rankingSection.innerHTML = rankings
+    .map((rankingEntry) => `<p>${rankingEntry.rank}. ${rankingEntry.wins} wins<br /><span>${rankingEntry.players.join(', ')}</span></p>`)
+    .join('');
+});

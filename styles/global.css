@@ -1,5 +1,9 @@
-h1 {
-    color: blueviolet;
+.game-won {
+    background-color: green;
+}
+
+.game-lost {
+    background-color: red;
 }
 
 /* padding */

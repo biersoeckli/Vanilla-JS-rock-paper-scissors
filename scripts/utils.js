@@ -8,3 +8,10 @@ export function groupArrayBy(array, key) {
         return returnVal;
     }, {});
 }
+
+export function isEmpty(list) {
+    if (!list || list.length === 0) {
+        return true;
+    }
+    return false;
+}
