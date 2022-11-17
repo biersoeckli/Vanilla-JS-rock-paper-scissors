@@ -7,19 +7,19 @@ function triggerSectionChanged() {
 }
 
 export function hideAllSections() {
-    gameSection.style.display = 'none';
-    welcomeSection.style.display = 'none';
+    gameSection.classList.add('hidden');
+    welcomeSection.classList.add('hidden');
 }
 
 export function showGameSection() {
     hideAllSections();
-    gameSection.style.display = 'inline';
+    gameSection.classList.remove('hidden');
     triggerSectionChanged();
 }
 
 export function showWelcomeSection() {
     hideAllSections();
-    welcomeSection.style.display = 'inline';
+    welcomeSection.classList.remove('hidden');
     triggerSectionChanged();
 }
 

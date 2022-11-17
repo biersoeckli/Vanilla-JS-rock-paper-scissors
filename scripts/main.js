@@ -23,6 +23,7 @@ function loadUserRangings() {
             return;
         }
         rankingSection.innerHTML = rankings
+            .filter((item, index) => index < 10) // limit ranking to 10 items
             .map((rankingEntry) => `<p><span class="text-bold">${escape(rankingEntry.rank)}.</span><br> ${escape(rankingEntry.wins)} wins<br /><span>${escape(rankingEntry.players.join(', '))}</span></p>`)
             .join('');
     });
