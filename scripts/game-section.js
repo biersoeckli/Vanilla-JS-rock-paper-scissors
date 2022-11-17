@@ -50,7 +50,7 @@ function updateGameHistoryTable() {
             <td>${escape(item.systemHand)}</td>
             </tr>`);
     if (isEmpty(tableContent)) {
-        gameHistorySection.innerHTML = '';
+        gameHistorySection.innerHTML = 'no data to show';
         return;
     }
     gameHistorySection.innerHTML = `<table><thead><tr><td>result</td><td>player</td><td>computer</td></tr></thead>${tableContent.join('')}</table>`;
@@ -64,8 +64,6 @@ async function showCountdown(numberStart) {
     await sleep(1000);
     await showCountdown(numberStart - 1);
 }
-
-// todo show what computer result was
 
 async function evaluateUserAnswer(playerHand, event) {
     userGuessButtons.forEach((button) => {
@@ -90,7 +88,6 @@ export default function startGame() {
     logoutButton.addEventListener('click', () => {
         resetCurrentUser();
         showWelcomeSection();
-        window.location.reload();
     });
     updateGameHistoryTable();
     countdownLabel.innerText = 'vs';

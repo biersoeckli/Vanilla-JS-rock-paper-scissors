@@ -2,6 +2,7 @@ import startGame from './game-section.js';
 import {getRankings, setConnected} from './services/game-service.js';
 import {
     hideAllSections,
+    onSectionChanged,
     showGameSection,
     showWelcomeSection,
 } from './services/page-navigation-service.js';
@@ -66,3 +67,4 @@ onlineOfflineCheckbox.addEventListener('click', () => {
 });
 
 loady(() => init());
+onSectionChanged(() => loadUserRangings());
