@@ -27,6 +27,15 @@ function loadUserRangings() {
     });
 }
 
+function startGameByUserInput() {
+    if (!usernameInput.value) {
+        return;
+    }
+    showGameSection();
+    setCurrentUser(usernameInput.value);
+    startGame();
+}
+
 function init() {
     hideAllSections();
     initUserService();
@@ -42,13 +51,11 @@ function init() {
         usernameInputButton.disabled = (usernameInput.value ?? '').split(' ')
             .join('') === '';
     });
-    usernameInputButton.addEventListener('click', () => {
-        if (!usernameInput.value) {
-            return;
+    usernameInputButton.addEventListener('click', () => startGameByUserInput());
+    usernameInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            startGameByUserInput();
         }
-        showGameSection();
-        setCurrentUser(usernameInput.value);
-        startGame();
     });
 }
 
