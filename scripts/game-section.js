@@ -1,9 +1,17 @@
-import { getCurrentUser, resetCurrentUser } from './services/user-service.js';
-import { FOUNTAIN, GAME_LOST_CLASS, GAME_WON_CLASS, PAPER, SCISSORS, STONE, MATCH } from './models/constants.js';
-import { escape, isEmpty, sleep } from './utils.js';
-import { showWelcomeSection } from './services/page-navigation-service.js';
-import { evaluateHand } from './services/game-service.js';
-import { getMoveHistory } from './services/game-move-history-service.js';
+import {getCurrentUser, resetCurrentUser} from './services/user-service.js';
+import {
+    FOUNTAIN,
+    GAME_LOST_CLASS,
+    GAME_WON_CLASS,
+    PAPER,
+    SCISSORS,
+    STONE,
+    MATCH,
+} from './models/constants.js';
+import {escape, isEmpty, sleep} from './utils.js';
+import {showWelcomeSection} from './services/page-navigation-service.js';
+import {evaluateHand} from './services/game-service.js';
+import {getMoveHistory} from './services/game-move-history-service.js';
 
 const usernameLabel = document.getElementById('username-label');
 const computerHandLabel = document.getElementById('computer-hand-label');
@@ -60,7 +68,9 @@ async function showCountdown(numberStart) {
 // todo show what computer result was
 
 async function evaluateUserAnswer(playerHand, event) {
-    userGuessButtons.forEach((button) => { button.disabled = true; });
+    userGuessButtons.forEach((button) => {
+        button.disabled = true;
+    });
     evaluateHand(getCurrentUser().name, playerHand, async (res) => {
         event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
         updateGameHistoryTable();
@@ -69,7 +79,9 @@ async function evaluateUserAnswer(playerHand, event) {
         countdownLabel.innerText = 'vs';
         computerHandLabel.innerText = '?';
         event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
-        userGuessButtons.forEach((button) => { button.disabled = false; });
+        userGuessButtons.forEach((button) => {
+            button.disabled = false;
+        });
     });
 }
 

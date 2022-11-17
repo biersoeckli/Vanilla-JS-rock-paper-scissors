@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_HISTORY_KEY } from '../models/constants.js';
+import {LOCAL_STORAGE_HISTORY_KEY} from '../models/constants.js';
 import MoveHistoryItem from '../models/move-history-item.js';
 
 export function getMoveHistory() {
