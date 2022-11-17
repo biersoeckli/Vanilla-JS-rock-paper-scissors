@@ -27,6 +27,7 @@ const countdownLabel = document.getElementById('countdown-label');
 
 function updateGameHistoryTable() {
     const tableContent = getMoveHistory()
+        .reverse()
         .filter((item) => item.playerName === getCurrentUser().name)
         .map((item) => `<tr>
             <td>${item.points === 1 ? 'won' : 'lost'}</td>
