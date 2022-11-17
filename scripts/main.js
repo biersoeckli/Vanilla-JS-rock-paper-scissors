@@ -1,4 +1,4 @@
-import { startGame } from './game-section.js';
+import startGame from './game-section.js';
 import { getRankings } from './services/game-service.js';
 import { hideAllSections, showGameSection, showWelcomeSection } from './services/page-navigation-service.js';
 import { getCurrentUser, initUserService, setCurrentUser } from './services/user-service.js';
