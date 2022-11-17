@@ -15,3 +15,7 @@ export function isEmpty(list) {
     }
     return false;
 }
+
+export function escape(unsafe) {
+    return `${unsafe}`.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}

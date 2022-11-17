@@ -1,6 +1,6 @@
 import { getCurrentUser, resetCurrentUser } from './services/user-service.js';
 import { FOUNTAIN, GAME_LOST_CLASS, GAME_WON_CLASS, PAPER, SCISSORS, STONE, MATCH } from './models/constants.js';
-import { isEmpty, sleep } from './utils.js';
+import { escape, isEmpty, sleep } from './utils.js';
 import { showWelcomeSection } from './services/page-navigation-service.js';
 import { evaluateHand } from './services/game-service.js';
 import { getMoveHistory } from './services/game-move-history-service.js';
@@ -37,9 +37,9 @@ function updateGameHistoryTable() {
         .reverse()
         .filter((item) => item.playerName === getCurrentUser().name)
         .map((item) => `<tr>
-            <td>${getMoveResultText(item.points)}</td>
-            <td>${item.playerHand}</td>
-            <td>${item.systemHand}</td>
+            <td>${escape(getMoveResultText(item.points))}</td>
+            <td>${escape(item.playerHand)}</td>
+            <td>${escape(item.systemHand)}</td>
             </tr>`);
     if (isEmpty(tableContent)) {
         gameHistorySection.innerHTML = '';

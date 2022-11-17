@@ -9,25 +9,6 @@ import MoveHistoryItem from '../models/move-history-item.js';
 import RankingItem from '../models/ranking-item.js';
 import { groupArrayBy } from '../utils.js';
 
-const DELAY_MS = 1000;
-const playerStats = {
-  Markus: {
-    user: 'Markus',
-    win: 3,
-    lost: 6,
-  },
-  Michael: {
-    user: 'Michael',
-    win: 4,
-    lost: 5,
-  },
-  Lisa: {
-    user: 'Lisa',
-    win: 4,
-    lost: 5,
-  },
-};
-
 export const HANDS = [SCISSORS, STONE, PAPER, FOUNTAIN, MATCH];
 
 const gameRuleMap = new Map([
@@ -48,8 +29,11 @@ export function isConnected() {
   return isConnectedState;
 }
 
-function getRankingsFromPlayerStats() {
-  if (!isConnected()) {
+async function getRankingsFromPlayerStats() {
+  let playerStats = {};
+  if (isConnected()) {
+    playerStats = await (await fetch('https://stone.sifs0005.infs.ch/ranking')).json();
+  } else {
     const offlineHistory = getMoveHistory();
     // adding history data from local storage to player stats (really ugly)
     const historyByUser = groupArrayBy(offlineHistory, 'playerName');
@@ -90,8 +74,7 @@ function getRankingsFromPlayerStats() {
 }
 
 export function getRankings(rankingsCallbackHandlerFn) {
-  const rankingsArray = getRankingsFromPlayerStats();
-  setTimeout(() => rankingsCallbackHandlerFn(rankingsArray), DELAY_MS);
+  getRankingsFromPlayerStats().then((rankingsArray) => rankingsCallbackHandlerFn(rankingsArray));
 }
 
 function getGameEval(playerHand, systemHand) {
@@ -103,18 +86,50 @@ function getGameEval(playerHand, systemHand) {
   return userWins ? 1 : -1;
 }
 
-export function evaluateHand(playerName, playerHand, gameRecordHandlerCallbackFn) {
-  // TODO: Replace calculation of didWin and update rankings while doing so.
-  // optional: in local-mode (isConnected == false) store rankings in the browser localStorage https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
-  const systemHand = HANDS[Math.floor(Math.random() * 3)];
-  const gameEval = getGameEval(playerHand, systemHand);
-  if (!isConnected()) {
-    const moveHistoryItem = new MoveHistoryItem(gameEval, playerHand, systemHand, playerName);
-    addMoveHistoryItem(moveHistoryItem);
+function mapGameEvalServerResponse(serverResonse) {
+  if (serverResonse === undefined) {
+    return 0;
   }
-  setTimeout(() => gameRecordHandlerCallbackFn({
+  return serverResonse ? 1 : -1;
+}
+
+function mapLocalHandToServerFriendlyHand(localHand) {
+  return new Map([
+    [SCISSORS, 'Schere'],
+    [PAPER, 'Stein'],
+    [STONE, 'Papier'],
+    [FOUNTAIN, 'Brunnen'],
+    [MATCH, 'Streichholz'],
+  ]).get(localHand);
+}
+
+function mapServerFriendlyHandToLocalHand(serverFriendlyHand) {
+  return new Map([
+    ['Schere', SCISSORS],
+    ['Stein', PAPER],
+    ['Papier', STONE],
+    ['Brunnen', FOUNTAIN],
+    ['Streichholz', MATCH],
+  ]).get(serverFriendlyHand);
+}
+
+export async function evaluateHand(playerName, playerHand, gameRecordHandlerCallbackFn) {
+  let systemHand;
+  let gameEval;
+  if (isConnected()) {
+    const serverFriendlyUserHand = mapLocalHandToServerFriendlyHand(playerHand);
+    const serverResult = await (await fetch(`https://stone.sifs0005.infs.ch/play?playerName=${playerName}&playerHand=${serverFriendlyUserHand}`)).json();
+    systemHand = mapServerFriendlyHandToLocalHand(serverResult.choice);
+    gameEval = mapGameEvalServerResponse(serverResult.win);
+  } else {
+    systemHand = HANDS[Math.floor(Math.random() * 3)];
+    gameEval = getGameEval(playerHand, systemHand);
+  }
+  const moveHistoryItem = new MoveHistoryItem(gameEval, playerHand, systemHand, playerName);
+  addMoveHistoryItem(moveHistoryItem);
+  gameRecordHandlerCallbackFn({
     playerHand,
     systemHand,
     gameEval,
-  }, DELAY_MS));
+  });
 }
