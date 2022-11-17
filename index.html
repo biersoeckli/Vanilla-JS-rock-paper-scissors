@@ -13,30 +13,40 @@
 </head>
 
 <body>
-  <h1 class="bg-cyan p-2 rounded-top text-center uppercase text-cyan">rock paper scissors <br />🪨 📄 ✂️</h1>
+  <div class="content">
+    <h1 class="bg-cyan p-2 rounded-top text-center uppercase text-cyan">rock paper scissors <br />🪨 📄 ✂️</h1>
 
-  <section id="welcome-screen-section">
-    <h1>Hey there! 👋</h1>
-    <p>Please enter a username:</p>
-    <input id="username-input" />
-    <button type="button" id="username-input-button">Let's go</button>
-    <section id="ranking-section"> </section>
-  </section>
+    <section id="welcome-screen-section">
+      <div class="bg-cyan p-2 text-center rounded-bottom">
+        <h1>Hey there! 👋</h1>
+        <p>Please enter a username:</p>
+        <input id="username-input" />
+        <button type="button" id="username-input-button">Let's go</button>
+      </div>
+      <section class="mt-2 p-2 rounded bg-cyan">
+        <h1 class="text-cyan pb-2 text-lg">Ranking</h1>
+        <article id="ranking-section"></article>
+      </section>
+    </section>
 
-  <section id="game-section">
-    <div class="bg-cyan p-2 text-center rounded-bottom">
-      <button type="button" class="fancy-button" id="scissors-button">scissors</button>
-      <button type="button" class="fancy-button" id="stone-button">stone</button>
-      <button type="button" class="fancy-button" id="paper-button">paper</button>
-      <button type="button" class="fancy-button" id="match-button">match</button>
-      <button type="button" class="fancy-button" id="fountain-button">fountain</button>
-      <p id="countdown-label"></p>
-      <p id="computer-hand-label"></p>
-    </div>
-    <p id="username-label"></p>
-    <button type="button" id="logout-button">Logout</button>
-    <section id="game-history-section"></section>
-  </section>
+    <section id="game-section">
+      <div class="bg-cyan p-2 text-center rounded-bottom">
+        <button type="button" class="fancy-button" id="scissors-button">scissors</button>
+        <button type="button" class="fancy-button" id="stone-button">stone</button>
+        <button type="button" class="fancy-button" id="paper-button">paper</button>
+        <button type="button" class="fancy-button" id="match-button">match</button>
+        <button type="button" class="fancy-button" id="fountain-button">fountain</button>
+        <p id="countdown-label"></p>
+        <p id="computer-hand-label"></p>
+        <button type="button" id="logout-button">back to overview</button>
+        <p>current player: <span id="username-label"></span></p>
+      </div>
+      <section class="mt-2 p-2 rounded bg-cyan">
+        <h1 class="text-cyan pb-2 text-lg">History</h1>
+        <article id="game-history-section"></article>
+      </section>
+    </section>
+  </div>
 </body>
 
 </html>

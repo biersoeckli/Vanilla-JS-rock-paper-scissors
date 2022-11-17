@@ -5,6 +5,13 @@ body {
     padding: 1rem;
 }
 
+@media only screen and (min-width: 750px) {
+    .content {
+        width: 50%;
+        padding-left: 25%;
+    }
+}
+
 h1 {
     margin: 0;
 }
@@ -17,11 +24,33 @@ h1 {
     background-color: #f43f5e !important;
 }
 
-/* padding */
+table {
+    width: 100%;
+}
+
+table thead {
+    font-weight: bold;
+}
+
+.text-lg {
+    font-size: 25px;
+}
+
+.text-cyan {
+    color: #f97316;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
 .rounded {
     border-radius: 1.5rem;
 }
-
 
 .rounded-top {
     border-radius: 1.5rem 1.5rem 0rem 0rem;
@@ -37,14 +66,6 @@ h1 {
 
 .bg-cyan {
     background-color: #fff7ed;
-}
-
-.text-cyan {
-    color: #f97316;
-}
-
-.text-center {
-    text-align: center;
 }
 
 .pt-2 {
@@ -90,46 +111,46 @@ h1 {
 
 /* button style copied from https://getcssscan.com/css-buttons-examples */
 .fancy-button {
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #fb923c;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #fb923c;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
 }
 
 .fancy-button:hover,
 .fancy-button:focus {
-  background-color: #fdba74;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    background-color: #fdba74;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
 .fancy-button:hover {
-  transform: translateY(-1px);
+    transform: translateY(-1px);
 }
 
 .fancy-button:active {
-  background-color: #ea580c;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
+    background-color: #ea580c;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
 }

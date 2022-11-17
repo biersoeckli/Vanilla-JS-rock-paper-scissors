@@ -38,6 +38,6 @@ getRankings((rankings) => {
     return;
   }
   rankingSection.innerHTML = rankings
-    .map((rankingEntry) => `<p>${rankingEntry.rank}. ${rankingEntry.wins} wins<br /><span>${rankingEntry.players.join(', ')}</span></p>`)
+    .map((rankingEntry) => `<p><span class="text-bold">${rankingEntry.rank}.</span><br /> ${rankingEntry.wins} wins<br /><span>${rankingEntry.players.join(', ')}</span></p>`)
     .join('');
 });
