@@ -72,10 +72,10 @@ async function evaluateUserAnswer(playerHand, event) {
     evaluateHand(getCurrentUser().name, playerHand, async (res) => {
         event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
         updateGameHistoryTable();
-        computerHandLabel.innerText = `computer had ${res.systemHand}`;
+        computerHandLabel.innerHTML = `vs <span class="text-bold">${res.systemHand}</span>`;
         await showCountdown(3);
         countdownLabel.innerText = 'vs';
-        computerHandLabel.innerText = '?';
+        computerHandLabel.innerHTML = '?';
         event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
         userGuessButtons.forEach((button) => {
             button.disabled = false;
@@ -91,7 +91,7 @@ export default function startGame() {
     });
     updateGameHistoryTable();
     countdownLabel.innerText = 'vs';
-    computerHandLabel.innerText = '?';
+    computerHandLabel.innerHTML = '?';
 }
 
 scissorsButton.addEventListener('click', (ev) => evaluateUserAnswer(SCISSORS, ev));
