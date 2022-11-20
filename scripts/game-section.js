@@ -70,13 +70,17 @@ async function evaluateUserAnswer(playerHand, event) {
         button.disabled = true;
     });
     evaluateHand(getCurrentUser().name, playerHand, async (res) => {
-        event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+        if (res.gameEval !== 0) {
+            event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+        }
         updateGameHistoryTable();
         computerHandLabel.innerHTML = `vs <span class="text-bold">${res.systemHand}</span>`;
         await showCountdown(3);
         countdownLabel.innerText = 'vs';
         computerHandLabel.innerHTML = '?';
-        event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+        if (res.gameEval !== 0) {
+            event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+        }
         userGuessButtons.forEach((button) => {
             button.disabled = false;
         });
