@@ -11,7 +11,7 @@
     "eslint": "eslint scripts/**",
     "all": "npm run stylelint && npm run w3c  && npm run eslint  && node -e \"console.log('npm run all completed')\""
   },
-  "author": "Markus Stolze / Michael Gfeller",
+  "author": "biersoeckli / Markus Stolze / Michael Gfeller",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.21.0",
