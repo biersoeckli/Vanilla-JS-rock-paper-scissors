@@ -48,6 +48,14 @@ function init() {
     }
     showWelcomeSection();
     loadUserRangings();
+}
+
+function initEventListeners() {
+    onlineOfflineCheckbox.addEventListener('click', () => {
+        onlineOfflineLabel.innerText = onlineOfflineCheckbox.checked ? 'online' : 'offline';
+        setConnected(onlineOfflineCheckbox.checked);
+        loadUserRangings();
+    });
     usernameInputButton.disabled = true;
     usernameInput.addEventListener('keyup', () => {
         usernameInputButton.disabled = (usernameInput.value ?? '').split(' ')
@@ -61,11 +69,8 @@ function init() {
     });
 }
 
-onlineOfflineCheckbox.addEventListener('click', () => {
-    onlineOfflineLabel.innerText = onlineOfflineCheckbox.checked ? 'online' : 'offline';
-    setConnected(onlineOfflineCheckbox.checked);
-    loadUserRangings();
+loady(() => {
+    initEventListeners();
+    init();
 });
-
-loady(() => init());
 onSectionChanged(() => loadUserRangings());

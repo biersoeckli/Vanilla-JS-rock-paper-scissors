@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>🪨 📄 ✂️</title>
@@ -10,19 +9,19 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
 </head>
-
 <body>
 
 <div class="loader" id="global-loader">
     <div></div>
 </div>
 <div class="content hidden" id="global-content">
-    <h1 class="bg-color p-2 rounded-top text-center uppercase text-color">rock paper scissors <br>🪨 📄 ✂️ 🧨 ⛲️</h1>
+    <h1 class="bg-color pt-2 pr-2 pl-2 rounded-top text-center uppercase text-color">rock paper scissors <span
+            class="block">🪨 📄 ✂️ 🧨 ⛲</span>️</h1>
 
     <section id="welcome-screen-section">
-        <div class="bg-color p-2 text-center rounded-bottom">
+        <div class="bg-color pl-2 pr-2 pb-2 text-center rounded-bottom">
             <h2>Hey there! 👋</h2>
-            <p>Please enter a username:</p>
+            <label for="username-input" class="block pt-1 pb-0_5">Please enter a username:</label>
             <input id="username-input"><br>
             <button type="button" id="username-input-button" class="fancy-button">Let's go</button>
             <p class="uppercase"><span class="text-bold">Game mode:</span>
@@ -39,12 +38,8 @@
     </section>
 
     <section id="game-section">
-        <div class="bg-color p-2 text-center rounded-bottom">
-            <button type="button" class="fancy-button bt-1" id="scissors-button">scissors</button>
-            <button type="button" class="fancy-button bt-1" id="stone-button">stone</button>
-            <button type="button" class="fancy-button bt-1" id="paper-button">paper</button>
-            <button type="button" class="fancy-button bt-1" id="match-button">match</button>
-            <button type="button" class="fancy-button bt-1" id="fountain-button">fountain</button>
+        <div class="bg-color pl-2 pr-2 pb-2 text-center rounded-bottom">
+            <div id="hand-buttons"></div>
             <p id="countdown-label"></p>
             <p id="computer-hand-label"></p>
             <p>current player: <span id="username-label" class="text-bold"></span></p>
@@ -55,7 +50,8 @@
             <div id="game-history-section"></div>
         </div>
     </section>
-    <p class="mt-2 text-center">view on <a href="https://github.com/biersoeckli/Vanilla-JS-rock-paper-scissors">GitHub</a>
+    <p class="mt-2 text-center">view on <a
+            href="https://github.com/biersoeckli/Vanilla-JS-rock-paper-scissors">GitHub</a>
     </p>
 </div>
 </body>

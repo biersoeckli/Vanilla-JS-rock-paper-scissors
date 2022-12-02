@@ -91,6 +91,26 @@ input:focus {
     padding: 2rem;
 }
 
+.pt-2 {
+    padding-top: 2rem;
+}
+
+.pt-1 {
+    padding-top: 1rem;
+}
+
+.pr-2 {
+    padding-right: 2rem;
+}
+
+.pl-2 {
+    padding-left: 2rem;
+}
+
+.pb-0_5 {
+    padding-bottom: 0.5rem;
+}
+
 .mt-2 {
     margin-top: 2rem;
 }
@@ -103,11 +123,71 @@ input:focus {
     border: 1rem;
 }
 
+.block {
+    display: block;
+}
+
 /* button style copied from https://getcssscan.com/css-buttons-examples */
 .fancy-button {
+    background-color: #fb923c;
     align-items: center;
     background-clip: padding-box;
-    background-color: #fb923c;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.fancy-button-success {
+    background-color: #16a34a;
+    align-items: center;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.fancy-button-error {
+    background-color: #f43f5e;
+    align-items: center;
+    background-clip: padding-box;
     border: 1px solid transparent;
     border-radius: 0.25rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -158,14 +238,6 @@ input:focus {
     touch-action: manipulation;
     vertical-align: baseline;
     width: auto;
-}
-
-.green {
-    background-color: #16a34a !important; /* todo */
-}
-
-.red {
-    background-color: #f43f5e !important; /* todo */
 }
 
 .fancy-button:hover,

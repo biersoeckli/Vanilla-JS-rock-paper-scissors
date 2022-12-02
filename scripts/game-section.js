@@ -1,35 +1,18 @@
 import {getCurrentUser, resetCurrentUser} from './services/user-service.js';
 import {
-    FOUNTAIN,
+    FANCY_BUTTON_CLASS,
     GAME_LOST_CLASS,
     GAME_WON_CLASS,
-    PAPER,
-    SCISSORS,
-    STONE,
-    MATCH,
 } from './models/constants.js';
 import {escape, isEmpty, sleep} from './utils.js';
 import {showWelcomeSection} from './services/page-navigation-service.js';
-import {evaluateHand} from './services/game-service.js';
+import {evaluateHand, HANDS} from './services/game-service.js';
 import {getMoveHistory} from './services/game-move-history-service.js';
 
 const usernameLabel = document.getElementById('username-label');
 const computerHandLabel = document.getElementById('computer-hand-label');
 const logoutButton = document.getElementById('logout-button');
-
-const scissorsButton = document.getElementById('scissors-button');
-const stoneButton = document.getElementById('stone-button');
-const paperButton = document.getElementById('paper-button');
-const matchButton = document.getElementById('match-button');
-const fountainButton = document.getElementById('fountain-button');
-const userGuessButtons = [
-    scissorsButton,
-    stoneButton,
-    paperButton,
-    matchButton,
-    fountainButton,
-];
-
+const handButtons = document.getElementById('hand-buttons');
 const gameHistorySection = document.getElementById('game-history-section');
 const countdownLabel = document.getElementById('countdown-label');
 
@@ -65,13 +48,20 @@ async function showCountdown(numberStart) {
     await showCountdown(numberStart - 1);
 }
 
+function getHandButtons() {
+    return Array.from(handButtons.childNodes)
+        .filter((childNode) => childNode.type === 'button');
+}
+
 async function evaluateUserAnswer(playerHand, event) {
-    userGuessButtons.forEach((button) => {
-        button.disabled = true;
-    });
-    evaluateHand(getCurrentUser().name, playerHand, async (res) => {
+    getHandButtons()
+        .forEach((button) => {
+            button.disabled = true;
+        });
+    await evaluateHand(getCurrentUser().name, playerHand, async (res) => {
         if (res.gameEval !== 0) {
             event.target.classList.add(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
+            event.target.classList.remove(FANCY_BUTTON_CLASS);
         }
         updateGameHistoryTable();
         computerHandLabel.innerHTML = `vs <span class="text-bold">${res.systemHand}</span>`;
@@ -79,27 +69,35 @@ async function evaluateUserAnswer(playerHand, event) {
         countdownLabel.innerText = 'vs';
         computerHandLabel.innerHTML = '?';
         if (res.gameEval !== 0) {
+            event.target.classList.add(FANCY_BUTTON_CLASS);
             event.target.classList.remove(res.gameEval === -1 ? GAME_LOST_CLASS : GAME_WON_CLASS);
         }
-        userGuessButtons.forEach((button) => {
-            button.disabled = false;
-        });
+        getHandButtons()
+            .forEach((button) => {
+                button.disabled = false;
+            });
     });
 }
 
 export default function startGame() {
     usernameLabel.innerText = getCurrentUser().name;
-    logoutButton.addEventListener('click', () => {
-        resetCurrentUser();
-        showWelcomeSection();
-    });
     updateGameHistoryTable();
     countdownLabel.innerText = 'vs';
     computerHandLabel.innerHTML = '?';
 }
 
-scissorsButton.addEventListener('click', (ev) => evaluateUserAnswer(SCISSORS, ev));
-stoneButton.addEventListener('click', (ev) => evaluateUserAnswer(STONE, ev));
-paperButton.addEventListener('click', (ev) => evaluateUserAnswer(PAPER, ev));
-matchButton.addEventListener('click', (ev) => evaluateUserAnswer(MATCH, ev));
-fountainButton.addEventListener('click', (ev) => evaluateUserAnswer(FOUNTAIN, ev));
+function initializeEventListeners() {
+    handButtons.innerHTML = HANDS.map((hand) => `<button type="button" class="fancy-button bt-1" id="${hand}-button">${hand}</button>`)
+        .join('');
+    handButtons.addEventListener('click', async (event) => {
+        if (event.target.type === 'button') {
+            await evaluateUserAnswer(event.target.innerText, event);
+        }
+    });
+    logoutButton.addEventListener('click', () => {
+        resetCurrentUser();
+        showWelcomeSection();
+    });
+}
+
+initializeEventListeners();
