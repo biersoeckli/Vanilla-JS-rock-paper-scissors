@@ -29,7 +29,10 @@ export function getLoader() {
 export async function loady(loadingFunc) {
     globalLoaderDiv.classList.remove('hidden');
     globalContentDiv.classList.add('hidden');
-    await loadingFunc();
-    globalLoaderDiv.classList.add('hidden');
-    globalContentDiv.classList.remove('hidden');
+    try {
+        await loadingFunc();
+    } finally {
+        globalLoaderDiv.classList.add('hidden');
+        globalContentDiv.classList.remove('hidden');
+    }
 }
